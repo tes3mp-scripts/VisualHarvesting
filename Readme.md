@@ -1,5 +1,7 @@
 This is a tes3mp version of graphic herbalism. Players can activate plants, removing them from the world and gaining ingredients. Whenever a cell is loaded, all the harvested plants respawn, if enough time has passed.
 
+Requires [DataManager](https://github.com/tes3mp-scripts/DataManager)!
+
 You can find the configuration file in `data/custom/__config_VisualHarvesting.json`.
 * `alchemyDeterminesChance` default value is `true`. Determines, whether the amount of ingredients gathered depends purely on chance, or also on the player's alchemy skill.
 * `menuId` should only be changed if another script is using the same `menuId`
