@@ -73,7 +73,7 @@ function VisualHarvesting.addIngredientToPlayer(pid, refId)
     end
     
     if ingredient_count == 0 then
-        tes3mp.MessageBox(pid, VisualHarvesting.config.menuId, VisualHarvesting.fail.message)
+        tes3mp.MessageBox(pid, VisualHarvesting.config.menuId, VisualHarvesting.config.fail.message)
         tes3mp.PlaySpeech(pid, VisualHarvesting.config.fail.sound)
     else
         inventoryHelper.addItem(player.data.inventory, plantConfig.ingredient, ingredient_count, -1, -1, "")
