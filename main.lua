@@ -22,11 +22,6 @@ function VisualHarvesting.sendObjectState(pid, cellDescription, uniqueIndex, sta
 end
 
 function VisualHarvesting.getRandom()
-    math.randomseed(os.time())
-    --not very random
-    math.random()
-    math.random()
-    math.random()
     return math.random()
 end
 
