@@ -96,8 +96,9 @@ function VisualHarvesting.disablePlant(pid, cellDescription, uniqueIndex)
         state = false,
         harvestTime = VisualHarvesting.getGameTime()
     }
-    if LoadedCells[cellDescription] ~= nil then
-        LoadedCells[cellDescription].data.objectData[uniqueIndex].state = false
+    local objectData = LoadedCells[cellDescription].data.objectData[uniqueIndex]
+    if objectData ~= nil then
+        objectData.state = false
     end
 
     VisualHarvesting.sendObjectState(pid, cellDescription, uniqueIndex, false)
