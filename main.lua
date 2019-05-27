@@ -54,7 +54,7 @@ function VisualHarvesting.addIngredientToPlayer(pid, refId)
     local skillRoll = 0
     
     if VisualHarvesting.config.alchemyDeterminesChance then
-        skillRoll = player.data.skills.Alchemy * 0.5 + roll * 50
+        skillRoll = (player.data.skills.Alchemy.base + player.data.skills.Alchemy.damage) * 0.5 + roll * 50
     else
         skillRoll = roll * 100
     end
