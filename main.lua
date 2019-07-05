@@ -71,15 +71,21 @@ function VisualHarvesting.addIngredientToPlayer(pid, refId)
         tes3mp.MessageBox(pid, VisualHarvesting.config.menuId, VisualHarvesting.config.fail.message)
         tes3mp.PlaySpeech(pid, VisualHarvesting.config.fail.sound)
     else
-        inventoryHelper.addItem(player.data.inventory, plantConfig.ingredient, ingredient_count, -1, -1, "")
-        
+        local ingred
+        if plantConfig.ingredient == nil then
+            ingred = plantConfig.ingredients[math.random(#plantConfig.ingredients)]
+        else
+            ingred = plantConfig.ingredient
+        end
+
+        inventoryHelper.addItem(player.data.inventory, ingred, ingredient_count, -1, -1, "")
         local message = string.format(VisualHarvesting.config.success.message, ingredient_count)
         tes3mp.MessageBox(pid, VisualHarvesting.config.menuId, message)
         tes3mp.PlaySpeech(pid, VisualHarvesting.config.success.sound)
         
         tes3mp.ClearInventoryChanges(pid)
         tes3mp.SetInventoryChangesAction(pid, enumerations.inventory.ADD)
-        tes3mp.AddItemChange(pid, plantConfig.ingredient, ingredient_count, -1, -1, "")
+        tes3mp.AddItemChange(pid, ingred, ingredient_count, -1, -1, "")
         tes3mp.SendInventoryChanges(pid)
     end
 end
