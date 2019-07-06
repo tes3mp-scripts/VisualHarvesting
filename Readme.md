@@ -23,3 +23,22 @@ You can find the configuration file in `data/custom/__config_VisualHarvesting.js
     }
 }
 ```
+A plant may contain more than one ingredient.  To do so, substitute the `ingredient` string with a table of strings called `ingredients` as seen below:
+```
+"<container refId>": {
+    "ingredients": {
+        "<ingredient refId>",
+        "<ingredient refId>"
+    },
+    "amount": {
+        "0": <highest roll that gives 0 ingredients>",
+        "1": <highest roll that gives 1 ingredients>",
+        ...
+    }
+}
+```
+When successfully harvested, one of the listed ingredients is randomly selected and placed in the player's inventory.
+
+### Mod Support
+
+You can find a config file with all plants from [Province Cyrodiil](https://www.nexusmods.com/morrowind/mods/44922), [Skyrim Home of the Nords](https://www.nexusmods.com/morrowind/mods/44921), and [Tamriel Rebuilt](https://www.tamriel-rebuilt.org/downloads/main-release) at [this link](https://git.modding-openmw.com/TES3MP/tes3mp-CoreScripts/raw/branch/0.7.0-momw-modded/data/custom/__config_VisualHarvesting.json).  Simply place this version of the VisualHarvesting config file into your `data/custom/` folder, or copy the `plants` table out and adjust to suit your needs.
