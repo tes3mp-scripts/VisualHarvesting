@@ -131,6 +131,14 @@ local defaultConfig = {
                 ["2"] = 100
             }
         },
+        ["flora_bittergreen_pod_01"] = {
+            ingredient = "ingred_bittergreen_petals_01",
+            amount = {
+                ["0"] = 30,
+                ["1"] = 70,
+                ["2"] = 100
+            }
+        },
         ["flora_black_anther_01"] = {
             ingredient = "ingred_black_anther_01",
             amount = {
