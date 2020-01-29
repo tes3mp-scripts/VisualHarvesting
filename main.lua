@@ -22,11 +22,6 @@ function VisualHarvesting.sendObjectState(pid, cellDescription, uniqueIndex, sta
 end
 
 function VisualHarvesting.getRandom()
-    math.randomseed(os.time())
-    --not very random
-    math.random()
-    math.random()
-    math.random()
     return math.random()
 end
 
@@ -59,7 +54,7 @@ function VisualHarvesting.addIngredientToPlayer(pid, refId)
     local skillRoll = 0
     
     if VisualHarvesting.config.alchemyDeterminesChance then
-        skillRoll = player.data.skills.Alchemy.base * 0.5 + roll * 50
+        skillRoll = (player.data.skills.Alchemy.base + player.data.skills.Alchemy.damage) * 0.5 + roll * 50
     else
         skillRoll = roll * 100
     end
@@ -76,15 +71,21 @@ function VisualHarvesting.addIngredientToPlayer(pid, refId)
         tes3mp.MessageBox(pid, VisualHarvesting.config.menuId, VisualHarvesting.config.fail.message)
         tes3mp.PlaySpeech(pid, VisualHarvesting.config.fail.sound)
     else
-        inventoryHelper.addItem(player.data.inventory, plantConfig.ingredient, ingredient_count, -1, -1, "")
-        
+        local ingred
+        if plantConfig.ingredient == nil then
+            ingred = plantConfig.ingredients[math.random(#plantConfig.ingredients)]
+        else
+            ingred = plantConfig.ingredient
+        end
+
+        inventoryHelper.addItem(player.data.inventory, ingred, ingredient_count, -1, -1, "")
         local message = string.format(VisualHarvesting.config.success.message, ingredient_count)
         tes3mp.MessageBox(pid, VisualHarvesting.config.menuId, message)
         tes3mp.PlaySpeech(pid, VisualHarvesting.config.success.sound)
         
         tes3mp.ClearInventoryChanges(pid)
         tes3mp.SetInventoryChangesAction(pid, enumerations.inventory.ADD)
-        tes3mp.AddItemChange(pid, plantConfig.ingredient, ingredient_count, -1, -1, "")
+        tes3mp.AddItemChange(pid, ingred, ingredient_count, -1, -1, "")
         tes3mp.SendInventoryChanges(pid)
     end
 end
@@ -101,7 +102,10 @@ function VisualHarvesting.disablePlant(pid, cellDescription, uniqueIndex)
         state = false,
         harvestTime = VisualHarvesting.getGameTime()
     }
-    LoadedCells[cellDescription].data.objectData[uniqueIndex].state = false
+    local objectData = LoadedCells[cellDescription].data.objectData[uniqueIndex]
+    if objectData ~= nil then
+        objectData.state = false
+    end
 
     VisualHarvesting.sendObjectState(pid, cellDescription, uniqueIndex, false)
 end
